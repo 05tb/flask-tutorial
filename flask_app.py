@@ -6,3 +6,7 @@ app.config["DEBUG"] = True
 @app.route("/")
 def hello():
     return "Hello!"
+
+@app.route("/bye")
+def bye():
+    return "Bye!"
