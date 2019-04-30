@@ -1,6 +1,6 @@
 # flask_app.py
 import pandas as pd
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -15,8 +15,11 @@ def bye():
     return "Bye!"
 
 
-@app.route("/api")
+@app.route("/api", methods=["GET", "POST"])
 def data():
-    d = {'col1': [1, 2], 'col2': [3, 4]}
-    df = pd.DataFrame(data=d)
-    return jsonify(df.to_json())
+    if request.method == "GET":
+        return "Post some JSON data here!"
+
+    if request.method == "POST":
+        df = request.get_json(force=True)
+        return jsonify(df)
